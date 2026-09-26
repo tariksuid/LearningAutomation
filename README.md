@@ -2,7 +2,9 @@
 
 A learning project for **API test automation** with **Python**, **pytest**, and **requests**.
 
-The tests run against [JSONPlaceholder](https://jsonplaceholder.typicode.com), a free fake REST API for practice.
+The tests cover full **CRUD** (create, read, update, delete) for the `/users` endpoint of [JSONPlaceholder](https://jsonplaceholder.typicode.com), a free fake REST API for practice.
+
+> JSONPlaceholder doesn't save changes: POST, PUT, and DELETE return realistic responses but the data stays the same, so those tests check the response only.
 
 ## Tech stack
 
@@ -17,6 +19,7 @@ TK-LEARNING-AUTOMATION/
 ├── tests/
 │   ├── conftest.py            # shared fixtures (base_url)
 │   ├── test_create_user.py    # POST test for creating a user
+│   ├── test_delete_user.py    # DELETE test for removing a user
 │   ├── test_update_user.py    # PUT test for updating a user
 │   └── test_users.py          # GET user tests with parametrize and boundary values
 ├── requirements.txt           # installed libraries and versions
@@ -52,7 +55,11 @@ pytest tests/test_users.py -v
 | --- | --- |
 | `test_create_user` | `POST /users` returns 201, a new `id`, and the same name, username, and email that were sent |
 
-> JSONPlaceholder is a fake API: it returns a created user but doesn't save it, so the test checks the response only.
+### `test_delete_user.py`
+
+| Test | What it checks |
+| --- | --- |
+| `test_delete_user` | `DELETE /users/1` returns 200 and an empty body (`{}`) |
 
 ### `test_update_user.py`
 
