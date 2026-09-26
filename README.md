@@ -16,7 +16,7 @@ The tests run against [JSONPlaceholder](https://jsonplaceholder.typicode.com), a
 TK-LEARNING-AUTOMATION/
 ├── tests/
 │   ├── test_first.py    # basic API checks
-│   └── test_users.py    # user tests with fixtures and parametrize
+│   └── test_users.py    # user tests with parametrize and boundary values
 ├── requirements.txt     # installed libraries and versions
 └── README.md
 ```
@@ -56,16 +56,14 @@ pytest tests/test_users.py -v
 
 | Test | What it checks |
 | --- | --- |
-| `test_user_id` | user 1 has the correct `id` |
-| `test_user_has_email` | user 1's email contains `@` |
-| `test_each_user_exists` | first and last valid users (1 and 10) return 200 and the correct `id` (parametrized) |
+| `test_each_user_exists` | first and last valid users (1 and 10) return 200, the correct `id`, and a valid email (parametrized) |
 | `test_missing_user_returns_404` | invalid users (0, 11, 9999) return 404 (negative, boundary test) |
 
 ## Testing practices used
 
 - **Timeouts** on every request, so a slow server can't hang the test run
 - **Status check before reading data**, for clear failure messages
-- **Fixtures** to share setup between tests (DRY: Don't Repeat Yourself)
 - **Parametrize** for data-driven testing: one test, many inputs
 - **Positive and negative tests**: checking both success and error responses
 - **Boundary value analysis**: testing the edges of valid data (1, 10) and just outside them (0, 11)
+- **No redundant tests**: each test checks something no other test covers
