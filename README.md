@@ -15,8 +15,9 @@ The tests run against [JSONPlaceholder](https://jsonplaceholder.typicode.com), a
 ```
 TK-LEARNING-AUTOMATION/
 ├── tests/
-│   ├── conftest.py      # shared fixtures (base_url)
-│   └── test_users.py    # user tests with parametrize and boundary values
+│   ├── conftest.py            # shared fixtures (base_url)
+│   ├── test_create_user.py    # POST test for creating a user
+│   └── test_users.py          # GET user tests with parametrize and boundary values
 ├── requirements.txt     # installed libraries and versions
 └── README.md
 ```
@@ -44,6 +45,14 @@ pytest tests/test_users.py -v
 
 ## What the tests cover
 
+### `test_create_user.py`
+
+| Test | What it checks |
+| --- | --- |
+| `test_create_user` | `POST /users` returns 201, a new `id`, and the same name, username, and email that were sent |
+
+> JSONPlaceholder is a fake API: it returns a created user but doesn't save it, so the test checks the response only.
+
 ### `test_users.py`
 
 | Test | What it checks |
@@ -60,3 +69,4 @@ pytest tests/test_users.py -v
 - **Positive and negative tests**: checking both success and error responses
 - **Boundary value analysis**: testing the edges of valid data (1, 10) and just outside them (0, 11)
 - **No redundant tests**: each test checks something no other test covers
+- **Expected values from the test data**: POST checks compare the response to the data that was sent, not retyped values
