@@ -4,9 +4,12 @@
 
 A learning project for **API test automation** with **Python**, **pytest**, and **requests**.
 
-The tests cover full **CRUD** (create, read, update, delete) for the `/users` endpoint of [JSONPlaceholder](https://jsonplaceholder.typicode.com), a free fake REST API for practice.
+The tests run against two practice APIs:
 
-> JSONPlaceholder doesn't save changes: POST, PUT, and DELETE return realistic responses but the data stays the same, so those tests check the response only.
+| API | What it's used for |
+| --- | --- |
+| [JSONPlaceholder](https://jsonplaceholder.typicode.com) | Full **CRUD** (create, read, update, delete) on `/users`. It's a fake API that doesn't save changes, so POST, PUT, and DELETE tests check the response only. |
+| [Restful-Booker](https://restful-booker.herokuapp.com) | Bookings that are **really saved**, plus **token authentication**. Tests verify the data by reading it back after each change. |
 
 ## Tech stack
 
@@ -22,7 +25,8 @@ TK-LEARNING-AUTOMATION/
 ├── .github/workflows/
 │   └── tests.yml              # CI workflow: installs dependencies and runs pytest
 ├── tests/
-│   ├── conftest.py            # shared fixtures (base_url)
+│   ├── conftest.py            # shared fixtures (base URLs, auth token)
+│   ├── test_bookings.py       # Restful-Booker: create and delete bookings
 │   ├── test_create_user.py    # POST test for creating a user
 │   ├── test_delete_user.py    # DELETE test for removing a user
 │   ├── test_update_user.py    # PUT test for updating a user
@@ -54,25 +58,38 @@ pytest tests/test_users.py -v
 
 ## What the tests cover
 
-### `test_create_user.py`
+### Restful-Booker
+
+#### `test_bookings.py`
+
+| Test | What it checks |
+| --- | --- |
+| `test_create_booking_is_saved` | a booking created with `POST /booking` can be read back with `GET` and has the same data |
+| `test_delete_booking` | an authenticated `DELETE /booking/{id}` removes the booking, and `GET` then returns 404 |
+
+Each test gets its own new booking from the `booking_id` fixture, so the tests don't depend on each other.
+
+### JSONPlaceholder
+
+#### `test_create_user.py`
 
 | Test | What it checks |
 | --- | --- |
 | `test_create_user` | `POST /users` returns 201, a new `id`, and the same name, username, and email that were sent |
 
-### `test_delete_user.py`
+#### `test_delete_user.py`
 
 | Test | What it checks |
 | --- | --- |
 | `test_delete_user` | `DELETE /users/1` returns 200 and an empty body (`{}`) |
 
-### `test_update_user.py`
+#### `test_update_user.py`
 
 | Test | What it checks |
 | --- | --- |
 | `test_update_user` | `PUT /users/1` returns 200, keeps the same `id`, and returns the updated name, username, and email |
 
-### `test_users.py`
+#### `test_users.py`
 
 | Test | What it checks |
 | --- | --- |
@@ -90,3 +107,7 @@ pytest tests/test_users.py -v
 - **No redundant tests**: each test checks something no other test covers
 - **Expected values from the test data**: POST checks compare the response to the data that was sent, not retyped values
 - **Continuous integration**: every push and pull request runs the full suite on a fresh machine
+- **Persistence checks**: after creating or deleting data, tests read it back to confirm the change was really saved
+- **Authentication fixture**: `auth_token` logs in once per test and passes the token to tests that need it
+- **Fixtures that create test data**: `booking_id` gives each test its own fresh booking, keeping tests independent
+- **Documented code**: docstrings on fixtures and tests (shown by `pytest --fixtures`), and comments that explain API quirks
