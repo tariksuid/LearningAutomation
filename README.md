@@ -17,8 +17,9 @@ TK-LEARNING-AUTOMATION/
 ├── tests/
 │   ├── conftest.py            # shared fixtures (base_url)
 │   ├── test_create_user.py    # POST test for creating a user
+│   ├── test_update_user.py    # PUT test for updating a user
 │   └── test_users.py          # GET user tests with parametrize and boundary values
-├── requirements.txt     # installed libraries and versions
+├── requirements.txt           # installed libraries and versions
 └── README.md
 ```
 
@@ -52,6 +53,12 @@ pytest tests/test_users.py -v
 | `test_create_user` | `POST /users` returns 201, a new `id`, and the same name, username, and email that were sent |
 
 > JSONPlaceholder is a fake API: it returns a created user but doesn't save it, so the test checks the response only.
+
+### `test_update_user.py`
+
+| Test | What it checks |
+| --- | --- |
+| `test_update_user` | `PUT /users/1` returns 200, keeps the same `id`, and returns the updated name, username, and email |
 
 ### `test_users.py`
 
