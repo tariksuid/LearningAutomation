@@ -15,6 +15,7 @@ The tests run against [JSONPlaceholder](https://jsonplaceholder.typicode.com), a
 ```
 TK-LEARNING-AUTOMATION/
 ├── tests/
+│   ├── conftest.py      # shared fixtures (base_url)
 │   ├── test_first.py    # basic API checks
 │   └── test_users.py    # user tests with parametrize and boundary values
 ├── requirements.txt     # installed libraries and versions
@@ -63,6 +64,7 @@ pytest tests/test_users.py -v
 
 - **Timeouts** on every request, so a slow server can't hang the test run
 - **Status check before reading data**, for clear failure messages
+- **Shared fixtures in `conftest.py`**: the API address lives in one place and every test file uses it
 - **Parametrize** for data-driven testing: one test, many inputs
 - **Positive and negative tests**: checking both success and error responses
 - **Boundary value analysis**: testing the edges of valid data (1, 10) and just outside them (0, 11)
