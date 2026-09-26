@@ -16,7 +16,6 @@ The tests run against [JSONPlaceholder](https://jsonplaceholder.typicode.com), a
 TK-LEARNING-AUTOMATION/
 ├── tests/
 │   ├── conftest.py      # shared fixtures (base_url)
-│   ├── test_first.py    # basic API checks
 │   └── test_users.py    # user tests with parametrize and boundary values
 ├── requirements.txt     # installed libraries and versions
 └── README.md
@@ -45,19 +44,11 @@ pytest tests/test_users.py -v
 
 ## What the tests cover
 
-### `test_first.py`
-
-| Test | What it checks |
-| --- | --- |
-| `test_math_works` | pytest is set up correctly |
-| `test_get_user_returns_200` | `GET /users/1` returns status 200 (OK) |
-| `test_user_has_expected_fields` | user 1 has `id`, `name`, and `email` fields |
-
 ### `test_users.py`
 
 | Test | What it checks |
 | --- | --- |
-| `test_each_user_exists` | first and last valid users (1 and 10) return 200, the correct `id`, and a valid email (parametrized) |
+| `test_get_valid_user` | first and last valid users (1 and 10) return 200, the correct `id`, a valid email, and a non-empty name (parametrized) |
 | `test_missing_user_returns_404` | invalid users (0, 11, 9999) return 404 (negative, boundary test) |
 
 ## Testing practices used
