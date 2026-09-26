@@ -1,5 +1,7 @@
 # TK-LEARNING-AUTOMATION
 
+[![Tests](https://github.com/tariqsuid/TK-LEARNING-AUTOMATION/actions/workflows/tests.yml/badge.svg)](https://github.com/tariqsuid/TK-LEARNING-AUTOMATION/actions/workflows/tests.yml)
+
 A learning project for **API test automation** with **Python**, **pytest**, and **requests**.
 
 The tests cover full **CRUD** (create, read, update, delete) for the `/users` endpoint of [JSONPlaceholder](https://jsonplaceholder.typicode.com), a free fake REST API for practice.
@@ -11,11 +13,14 @@ The tests cover full **CRUD** (create, read, update, delete) for the `/users` en
 - Python 3.14
 - pytest — test framework
 - requests — HTTP library for calling APIs
+- GitHub Actions — CI that runs the tests on every push and pull request
 
 ## Project structure
 
 ```
 TK-LEARNING-AUTOMATION/
+├── .github/workflows/
+│   └── tests.yml              # CI workflow: installs dependencies and runs pytest
 ├── tests/
 │   ├── conftest.py            # shared fixtures (base_url)
 │   ├── test_create_user.py    # POST test for creating a user
@@ -84,3 +89,4 @@ pytest tests/test_users.py -v
 - **Boundary value analysis**: testing the edges of valid data (1, 10) and just outside them (0, 11)
 - **No redundant tests**: each test checks something no other test covers
 - **Expected values from the test data**: POST checks compare the response to the data that was sent, not retyped values
+- **Continuous integration**: every push and pull request runs the full suite on a fresh machine
