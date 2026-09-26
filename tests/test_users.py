@@ -19,13 +19,14 @@ def test_user_has_email(user):
     assert "@" in user["email"]
 
 
-@pytest.mark.parametrize("user_id", [1, 2, 3, 4, 5])
+@pytest.mark.parametrize("user_id", [1, 10])
 def test_each_user_exists(user_id):
     response = requests.get(f"{BASE_URL}/users/{user_id}", timeout=10)
     assert response.status_code == 200
     assert response.json()["id"] == user_id
 
 
-def test_missing_user_returns_404():
-    response = requests.get(f"{BASE_URL}/users/9999", timeout=10)
+@pytest.mark.parametrize("user_id", [0, 11, 9999])
+def test_missing_user_returns_404(user_id):
+    response = requests.get(f"{BASE_URL}/users/{user_id}", timeout=10)
     assert response.status_code == 404

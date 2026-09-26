@@ -58,8 +58,8 @@ pytest tests/test_users.py -v
 | --- | --- |
 | `test_user_id` | user 1 has the correct `id` |
 | `test_user_has_email` | user 1's email contains `@` |
-| `test_each_user_exists` | users 1–5 each return 200 and the correct `id` (parametrized) |
-| `test_missing_user_returns_404` | a user that doesn't exist returns 404 (negative test) |
+| `test_each_user_exists` | first and last valid users (1 and 10) return 200 and the correct `id` (parametrized) |
+| `test_missing_user_returns_404` | invalid users (0, 11, 9999) return 404 (negative, boundary test) |
 
 ## Testing practices used
 
@@ -68,3 +68,4 @@ pytest tests/test_users.py -v
 - **Fixtures** to share setup between tests (DRY: Don't Repeat Yourself)
 - **Parametrize** for data-driven testing: one test, many inputs
 - **Positive and negative tests**: checking both success and error responses
+- **Boundary value analysis**: testing the edges of valid data (1, 10) and just outside them (0, 11)
