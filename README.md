@@ -1,6 +1,6 @@
 # TK-LEARNING-AUTOMATION
 
-[![Tests](https://github.com/tariqsuid/TK-LEARNING-AUTOMATION/actions/workflows/tests.yml/badge.svg)](https://github.com/tariqsuid/TK-LEARNING-AUTOMATION/actions/workflows/tests.yml)
+[![Tests](https://github.com/tariksuid/LearningAutomation/actions/workflows/tests.yml/badge.svg)](https://github.com/tariksuid/LearningAutomation/actions/workflows/tests.yml)
 
 A learning project for **API test automation** with **Python**, **pytest**, and **requests**.
 
