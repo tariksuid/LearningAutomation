@@ -7,7 +7,7 @@ import requests
 
 
 @pytest.fixture
-def base_url():
+def jsonplaceholder_url():
     """Base URL of JSONPlaceholder, a fake API that doesn't save changes."""
     return "https://jsonplaceholder.typicode.com"
 

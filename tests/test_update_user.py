@@ -3,13 +3,13 @@ import requests
 
 
 @pytest.mark.parametrize("user_id", [1])
-def test_update_user(base_url, user_id):
+def test_update_user(jsonplaceholder_url, user_id):
     updated_user = {
         "name": "Sherlock Holmes",
         "username": "sherlock",
         "email": "sherlock@example.com",
     }
-    response = requests.put(f"{base_url}/users/{user_id}", json=updated_user, timeout=10)
+    response = requests.put(f"{jsonplaceholder_url}/users/{user_id}", json=updated_user, timeout=10)
     assert response.status_code == 200
     user = response.json()
     assert user["id"] == user_id
